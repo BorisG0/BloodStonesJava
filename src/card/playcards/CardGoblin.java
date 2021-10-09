@@ -13,7 +13,7 @@ public class CardGoblin extends Card {
 	
 	public CardGoblin(){
 		try {
-			b = ImageIO.read(new File("res\\CardHodenKobold.png"));
+			b = ImageIO.read(new File("res\\CardGoblin.png"));
 		} catch (IOException e) {
 			System.out.println("krinsch");
 		}

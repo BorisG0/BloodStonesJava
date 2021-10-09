@@ -13,7 +13,7 @@ public class CreatureGoblin extends Creature {
 	public CreatureGoblin(Player owner){
 		super(owner);
 		try {
-			b = ImageIO.read(new File("res\\CreatureHodenKobold.png"));
+			b = ImageIO.read(new File("res\\CreatureGoblin.png"));
 		} catch (IOException e) {
 			System.out.println("krinsch");
 		}
