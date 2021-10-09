@@ -21,7 +21,7 @@ public class CreatureGoblin extends Creature {
 		health = 2;
 		damage = 1;
 		
-		name = "hodenkobold";
+		name = "goblin";
 	}
 
 }
