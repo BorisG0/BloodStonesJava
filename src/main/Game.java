@@ -453,33 +453,33 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 	
 	BufferedImage getNumberImage(int number) {
 		BufferedImage b = null;
-		String path = "res\\BackSide.png";
+		String path = "res\\num" + number + ".png";
 		
-		switch (number) {
-		
-		case 0: path = "res\\num0.png"; break;
-		
-		case 1: path = "res\\num1.png"; break;
-		
-		case 2: path = "res\\num2.png"; break;
-
-		case 3: path = "res\\num3.png"; break;
-		
-		case 4: path = "res\\num4.png"; break;
-		
-		case 5: path = "res\\num5.png"; break;
-		
-		case 6: path = "res\\num6.png"; break;
-		
-		case 7: path = "res\\num7.png"; break;
-		
-		case 8: path = "res\\num8.png"; break;
-		
-		case 9: path = "res\\num9.png"; break;
-		
-		case 10: path = "res\\num10.png"; break;
-		
-		}
+//		switch (number) {
+//
+//		case 0: path = "res\\num0.png"; break;
+//
+//		case 1: path = "res\\num1.png"; break;
+//
+//		case 2: path = "res\\num2.png"; break;
+//
+//		case 3: path = "res\\num3.png"; break;
+//
+//		case 4: path = "res\\num4.png"; break;
+//
+//		case 5: path = "res\\num5.png"; break;
+//
+//		case 6: path = "res\\num6.png"; break;
+//
+//		case 7: path = "res\\num7.png"; break;
+//
+//		case 8: path = "res\\num8.png"; break;
+//
+//		case 9: path = "res\\num9.png"; break;
+//
+//		case 10: path = "res\\num10.png"; break;
+//
+//		}
 		
 		try {
 			b = ImageIO.read(new File(path));

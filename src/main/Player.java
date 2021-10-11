@@ -39,7 +39,7 @@ public class Player {
 		
 		creatures = new ArrayList<Creature>();
 		
-		health = 10;
+		health = 30;
 		activeStones = 0;
 		maxStones = 0;
 		
