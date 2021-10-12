@@ -19,6 +19,7 @@ public class CreatureArmoredOgre extends Creature {
 		
 		health = 7;
 		damage = 2;
+		isTaunt = true;
 		
 		name = "armored ogre";
 	}

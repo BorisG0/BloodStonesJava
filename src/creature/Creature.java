@@ -10,6 +10,7 @@ public abstract class Creature {
 	protected int health, damage;
 	protected String name;
 	protected boolean ready;
+	protected boolean isTaunt = false;
 	
 	public Creature(Player owner) {
 		this.owner = owner;
@@ -43,7 +44,11 @@ public abstract class Creature {
 	public boolean isReady() {
 		return ready;
 	}
-	
+
+	public boolean isTaunt(){
+		return isTaunt;
+	}
+
 	public void attack(Creature attackedCreature) {
 		attackedCreature.takeHit(damage);
 		takeHit(attackedCreature.getDamage());

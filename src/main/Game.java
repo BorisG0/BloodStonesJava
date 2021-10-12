@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Game extends JPanel implements MouseListener, KeyListener{
 
 	JFrame frame;
-	BufferedImage selectedImage, selectingTargetImage, notReadyImage, backSide, endTurnImage, nextTurnImage,
+	BufferedImage selectedImage, tauntImage, selectingTargetImage, notReadyImage, backSide, endTurnImage, nextTurnImage,
 	stoneImage, emptyStoneImage, image, player1Image, player2Image;
 	Player player1;
 	Player player2;
@@ -58,6 +58,7 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 
 		try {
 			selectedImage = ImageIO.read(new File("res\\Selected.png"));
+			tauntImage = ImageIO.read(new File("res\\Taunt.png"));
 			selectingTargetImage = ImageIO.read(new File("res\\selectingTarget.png"));
 			notReadyImage = ImageIO.read(new File("res\\notReady.png"));
 			backSide = ImageIO.read(new File("res\\BackSide.png"));
@@ -366,51 +367,65 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 				null);
 	}
 
-	public void drawActiveCreatures(Graphics g, ArrayList<Creature> creatures) {
-		
-		Creature c;
+	public void drawCreature(Graphics g, Creature c, int x, int y){
+		image = c.getImage();
+		g.drawImage(image,
+				x,
+				y,
+				x + creatureImageSizeX,
+				y + creatureImageSizeY,
+				0, 0, 512, 724,
+				null);
 
-		for(int i = 0; i < creatures.size(); i++) {
-			c = creatures.get(i);
-			image = c.getImage();
-			
-			int x = creatureHorizontalGap + i * (creatureImageSizeX + creatureHorizontalGap);
-			int y = fh - handImageSizeY - handCardVerticalGap - creatureImageSizeY - creatureVerticalGap;
+		g.drawImage(getNumberImage(c.getDamage()),
+				x,
+				y + creatureImageSizeY - creatureNumberSizeY,
+				x + creatureNumberSizeX,
+				y + + creatureImageSizeY,
+				0, 0, 124, 164,
+				null);
 
-			g.drawImage(image,
+		g.drawImage(getNumberImage(c.getHealth()),
+				x + creatureImageSizeX - creatureNumberSizeX,
+				y + creatureImageSizeY - creatureNumberSizeY,
+				x + creatureImageSizeX,
+				y + + creatureImageSizeY,
+				0, 0, 124, 164,
+				null);
+
+		if(!c.isReady()) {
+			g.drawImage(notReadyImage,
 					x,
 					y,
 					x + creatureImageSizeX,
 					y + creatureImageSizeY,
 					0, 0, 512, 724,
 					null);
-			
-			
-			g.drawImage(getNumberImage(c.getDamage()),
+		}
+
+		if(c.isTaunt()) {
+			g.drawImage(tauntImage,
 					x,
-					y + creatureImageSizeY - creatureNumberSizeY,
-					x + creatureNumberSizeX,
-					y + + creatureImageSizeY,
-					0, 0, 124, 164,
-					null);
-			
-			g.drawImage(getNumberImage(c.getHealth()),
-					x + creatureImageSizeX - creatureNumberSizeX,
-					y + creatureImageSizeY - creatureNumberSizeY,
+					y,
 					x + creatureImageSizeX,
-					y + + creatureImageSizeY,
-					0, 0, 124, 164,
+					y + creatureImageSizeY,
+					0, 0, 512, 724,
 					null);
+		}
+	}
+
+	public void drawActiveCreatures(Graphics g, ArrayList<Creature> creatures) {
+		
+		Creature c;
+
+		for(int i = 0; i < creatures.size(); i++) {
+			c = creatures.get(i);
 			
-			if(!c.isReady()) {
-				g.drawImage(notReadyImage,
-						x,
-						y,
-						x + creatureImageSizeX,
-						y + creatureImageSizeY,
-						0, 0, 512, 724,
-						null);
-			}
+			int x = creatureHorizontalGap + i * (creatureImageSizeX + creatureHorizontalGap);
+			int y = fh - handImageSizeY - handCardVerticalGap - creatureImageSizeY - creatureVerticalGap;
+
+			drawCreature(g, c, x, y);
+
 		}
 	}
 
@@ -420,66 +435,17 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 
 		for(int i = 0; i < creatures.size(); i++) {
 			c = creatures.get(i);
-			image = c.getImage();
 			
 			int x = creatureHorizontalGap + i * (creatureImageSizeX + creatureHorizontalGap);
 			int y = handCardVerticalGap + handImageSizeY + creatureVerticalGap;
 
-			g.drawImage(image,
-					x,
-					y,
-					x + creatureImageSizeX,
-					y + creatureImageSizeY,
-					0, 0, 512, 724,
-					null);
-			
-			g.drawImage(getNumberImage(c.getDamage()),
-					x,
-					y + creatureImageSizeY - creatureNumberSizeY,
-					x + creatureNumberSizeX,
-					y + + creatureImageSizeY,
-					0, 0, 124, 164,
-					null);
-			
-			g.drawImage(getNumberImage(c.getHealth()),
-					x + creatureImageSizeX - creatureNumberSizeX,
-					y + creatureImageSizeY - creatureNumberSizeY,
-					x + creatureImageSizeX,
-					y + + creatureImageSizeY,
-					0, 0, 124, 164,
-					null);
+			drawCreature(g, c, x, y);
 		}
 	}
 	
 	BufferedImage getNumberImage(int number) {
 		BufferedImage b = null;
 		String path = "res\\num" + number + ".png";
-		
-//		switch (number) {
-//
-//		case 0: path = "res\\num0.png"; break;
-//
-//		case 1: path = "res\\num1.png"; break;
-//
-//		case 2: path = "res\\num2.png"; break;
-//
-//		case 3: path = "res\\num3.png"; break;
-//
-//		case 4: path = "res\\num4.png"; break;
-//
-//		case 5: path = "res\\num5.png"; break;
-//
-//		case 6: path = "res\\num6.png"; break;
-//
-//		case 7: path = "res\\num7.png"; break;
-//
-//		case 8: path = "res\\num8.png"; break;
-//
-//		case 9: path = "res\\num9.png"; break;
-//
-//		case 10: path = "res\\num10.png"; break;
-//
-//		}
 		
 		try {
 			b = ImageIO.read(new File(path));
