@@ -573,7 +573,7 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 			
 		}else if(my <= handCardVerticalGap + handImageSizeY && my >= handCardVerticalGap && mx <= handImageSizeX) { //enemy character clicked
 			System.out.println("Enemy Character clicked");
-			if(selectedCreature != -1) { //selecting target for creature to attack
+			if(selectedCreature != -1 && !enemyHasTaunt) { //selecting target for creature to attack
 				activeCreatures.get(selectedCreature).attack(passivePlayer);
 				selectedCreature = -1;
 			}
