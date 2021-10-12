@@ -24,6 +24,7 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 	Player player2;
 	Player activePlayer, passivePlayer;
 	boolean player1Active = true, isTurnEnded = false;
+	boolean enemyHasTaunt = false;
 	int mx, my, fw, fh;
 	int selectedHandCard = -1, selectedCreature = -1, selectedEnemyCreature = -1;
 	ArrayList<Card> activeHand, passiveHand;
@@ -89,9 +90,6 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 
 		
 		frame.add(this);
-
-
-
 
 
 		nextTurn();
@@ -467,13 +465,16 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 		mx = e.getX();
 		my = e.getY();
 		
-		
-		
 		if(inspectedCard != null || inspectedCreature != null) {
 			inspectedCard = null;
 			inspectedCreature = null;
 			frame.repaint();
 			return;
+		}
+
+		enemyHasTaunt = false;			//tauntcheck
+		for(Creature c : passiveCreatures){
+			if(c.isTaunt()) enemyHasTaunt = true;
 		}
 
 		if(my <= fh - handCardVerticalGap && my >= fh - handCardVerticalGap - handImageSizeY &&  //hand clicked
@@ -502,7 +503,7 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 
 
 
-		}else if(my <= fh - handCardVerticalGap - handImageSizeY - creatureVerticalGap &&  //creatures clicked
+		}else if(my <= fh - handCardVerticalGap - handImageSizeY - creatureVerticalGap &&  //active creatures clicked
 				my >= fh - handCardVerticalGap - handImageSizeY - creatureVerticalGap - creatureImageSizeY){
 			int selectedCreature = mx / (creatureImageSizeX + creatureHorizontalGap);
 			//System.out.println("selectedCreature: " + selectedCreature);
@@ -539,7 +540,7 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 			}
 
 
-		}else if(my >= handCardVerticalGap + handImageSizeY + creatureVerticalGap && //enemy creatures clicked
+		}else if(my >= handCardVerticalGap + handImageSizeY + creatureVerticalGap && //passive creatures clicked
 				my <= handCardVerticalGap + handImageSizeY + creatureVerticalGap + creatureImageSizeY){
 			int selectedEnemyCreature = mx / (creatureImageSizeX + creatureHorizontalGap);
 			//System.out.println("selectedEnemyCreature: " + selectedEnemyCreature);
@@ -548,30 +549,31 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 				passiveCreatures.get(selectedEnemyCreature);
 			}catch(IndexOutOfBoundsException xx) {
 				selectedEnemyCreature = -1;
-				blankClicked();
+				//blankClicked();
 			}
-			
-			if(e.getButton() == e.BUTTON3 && selectedEnemyCreature != -1) {
-				
-				inspectedCreature = passiveCreatures.get(selectedEnemyCreature);
-				
-			}else {
-				if(selectedEnemyCreature != -1) {
+
+			if(selectedEnemyCreature != -1){
+				if(e.getButton() == e.BUTTON3){
+					inspectedCreature = passiveCreatures.get(selectedEnemyCreature);
+				}else{
+					Creature targetedCreature = passiveCreatures.get(selectedEnemyCreature);
 					if(selectingTarget) { //selecting target for spell
-						selectingTargetFor.target(null, passiveCreatures.get(selectedEnemyCreature));
+						selectingTargetFor.target(null, targetedCreature);
 						selectingTarget = false;
 						selectingTargetFor = null;
-					}else if(selectedCreature != -1) {
-						activeCreatures.get(selectedCreature).attack(passiveCreatures.get(selectedEnemyCreature));
+					}else if((!enemyHasTaunt) || targetedCreature.isTaunt()){ //selecting target for creature to attack
+						Creature attackingCreature = activeCreatures.get(selectedCreature);
+
+						attackingCreature.attack(targetedCreature);
 						selectedCreature = -1;
-					}
-					
-				}else blankClicked();
-			}
+					}else blankClicked();
+				}
+			}else blankClicked();
+
 			
 		}else if(my <= handCardVerticalGap + handImageSizeY && my >= handCardVerticalGap && mx <= handImageSizeX) { //enemy character clicked
 			System.out.println("Enemy Character clicked");
-			if(selectedCreature != -1) {
+			if(selectedCreature != -1) { //selecting target for creature to attack
 				activeCreatures.get(selectedCreature).attack(passivePlayer);
 				selectedCreature = -1;
 			}
