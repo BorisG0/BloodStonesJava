@@ -9,6 +9,7 @@ public abstract class Card {
 	protected BufferedImage b;
 	protected int cost;
 	protected boolean targeted = false;
+	private String text;
 	
 	public BufferedImage getImage() {
 		return b;
