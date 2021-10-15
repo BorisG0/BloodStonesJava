@@ -2,16 +2,16 @@ package card.playcards;
 
 import card.Card;
 import creature.Creature;
-import creature.playcreatures.CreatureShieldedKnight;
+import creature.playcreatures.CreatureUndeadKnight;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import main.Player;
 
-public class CardShieldedKnight extends Card {
-    public CardShieldedKnight(){
+public class CardUndeadKnight extends Card {
+    public CardUndeadKnight(){
         try {
-            b = ImageIO.read(new File("res\\CardShieldedKnight.png"));
+            b = ImageIO.read(new File("res\\CardUndeadKnight.png"));
         } catch (IOException e) {
             System.out.println("krinsch");
         }
@@ -20,13 +20,12 @@ public class CardShieldedKnight extends Card {
     }
 
     public void play(Player owner, Player enemy) {
-        System.out.println("Shielded Knight played");
-        owner.spawnCreature(new CreatureShieldedKnight(owner));
+        System.out.println("Undead Knight played");
+        owner.spawnCreature(new CreatureUndeadKnight(owner));
     }
+
 
     @Override
     public void target(Player pTarget, Creature cTarget) {
-        // TODO Auto-generated method stub
-
     }
 }

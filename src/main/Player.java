@@ -29,6 +29,7 @@ public class Player {
 			deck.add(new CardFireBall());
 			deck.add(new CardArmoredOgre());
 			deck.add(new CardShieldedKnight());
+			deck.add(new CardUndeadKnight());
 		}
 		
 		Collections.shuffle(deck);
@@ -125,6 +126,11 @@ public class Player {
 	
 	public void setMaxStones(int maxStones) {
 		this.maxStones = maxStones;
+	}
+
+	public void spawnCreature(Creature c){
+		c.setReady(false);
+		this.addCreature(c);
 	}
 
 }

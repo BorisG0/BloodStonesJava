@@ -18,8 +18,9 @@ import java.util.ArrayList;
 public class Game extends JPanel implements MouseListener, KeyListener{
 
 	JFrame frame;
-	BufferedImage selectedImage, tauntImage, shieldImage, selectingTargetImage, notReadyImage, backSide, endTurnImage, nextTurnImage,
+	BufferedImage selectedImage, selectingTargetImage, notReadyImage, backSide, endTurnImage, nextTurnImage,
 	stoneImage, emptyStoneImage, image, player1Image, player2Image;
+	BufferedImage tauntImage, shieldImage, undeadImage;
 	Player player1;
 	Player player2;
 	Player activePlayer, passivePlayer;
@@ -61,6 +62,7 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 			selectedImage = ImageIO.read(new File("res\\Selected.png"));
 			tauntImage = ImageIO.read(new File("res\\Taunt.png"));
 			shieldImage = ImageIO.read(new File("res\\Shield.png"));
+			undeadImage = ImageIO.read(new File("res\\Undead.png"));
 			selectingTargetImage = ImageIO.read(new File("res\\selectingTarget.png"));
 			notReadyImage = ImageIO.read(new File("res\\notReady.png"));
 			backSide = ImageIO.read(new File("res\\BackSide.png"));
@@ -393,33 +395,27 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 				null);
 
 		if(!c.isReady()) {
-			g.drawImage(notReadyImage,
-					x,
-					y,
-					x + creatureImageSizeX,
-					y + creatureImageSizeY,
-					0, 0, 512, 724,
-					null);
+			drawSpecialStateImage(g, x, y, notReadyImage);
 		}
-
 		if(c.isTaunt()) {
-			g.drawImage(tauntImage,
-					x,
-					y,
-					x + creatureImageSizeX,
-					y + creatureImageSizeY,
-					0, 0, 512, 724,
-					null);
+			drawSpecialStateImage(g, x, y, tauntImage);
 		}
 		if(c.isShielded()){
-			g.drawImage(shieldImage,
-				x,
-				y,
-				x + creatureImageSizeX,
-				y + creatureImageSizeY,
-				0, 0, 512, 724,
-				null);
+			drawSpecialStateImage(g, x, y, shieldImage);
 		}
+		if(c.isUndead()){
+			drawSpecialStateImage(g, x, y, undeadImage);
+		}
+	}
+
+	private void drawSpecialStateImage(Graphics g, int x, int y, BufferedImage image){
+		g.drawImage(image,
+			x,
+			y,
+			x + creatureImageSizeX,
+			y + creatureImageSizeY,
+			0, 0, 512, 724,
+			null);
 	}
 
 	public void drawActiveCreatures(Graphics g, ArrayList<Creature> creatures) {

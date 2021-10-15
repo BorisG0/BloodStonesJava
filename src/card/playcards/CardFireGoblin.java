@@ -2,6 +2,7 @@ package card.playcards;
 
 import card.Card;
 import creature.Creature;
+import creature.playcreatures.CreatureArmoredOgre;
 import creature.playcreatures.CreatureFireGoblin;
 import main.Player;
 
@@ -23,10 +24,7 @@ public class CardFireGoblin extends Card {
 
 	public void play(Player owner, Player enemy) {
 		System.out.println("FireGoblin played");
-		CreatureFireGoblin c = new CreatureFireGoblin(owner);
-		c.setReady(false);
-		owner.addCreature(c);
-		
+		owner.spawnCreature(new CreatureFireGoblin(owner));
 	}
 
 	@Override
