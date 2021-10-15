@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Game extends JPanel implements MouseListener, KeyListener{
 
 	JFrame frame;
-	BufferedImage selectedImage, tauntImage, selectingTargetImage, notReadyImage, backSide, endTurnImage, nextTurnImage,
+	BufferedImage selectedImage, tauntImage, shieldImage, selectingTargetImage, notReadyImage, backSide, endTurnImage, nextTurnImage,
 	stoneImage, emptyStoneImage, image, player1Image, player2Image;
 	Player player1;
 	Player player2;
@@ -60,6 +60,7 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 		try {
 			selectedImage = ImageIO.read(new File("res\\Selected.png"));
 			tauntImage = ImageIO.read(new File("res\\Taunt.png"));
+			shieldImage = ImageIO.read(new File("res\\Shield.png"));
 			selectingTargetImage = ImageIO.read(new File("res\\selectingTarget.png"));
 			notReadyImage = ImageIO.read(new File("res\\notReady.png"));
 			backSide = ImageIO.read(new File("res\\BackSide.png"));
@@ -409,6 +410,15 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 					y + creatureImageSizeY,
 					0, 0, 512, 724,
 					null);
+		}
+		if(c.isShielded()){
+			g.drawImage(shieldImage,
+				x,
+				y,
+				x + creatureImageSizeX,
+				y + creatureImageSizeY,
+				0, 0, 512, 724,
+				null);
 		}
 	}
 

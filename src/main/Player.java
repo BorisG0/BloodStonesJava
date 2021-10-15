@@ -28,6 +28,7 @@ public class Player {
 			deck.add(new CardFireGoblin());
 			deck.add(new CardFireBall());
 			deck.add(new CardArmoredOgre());
+			deck.add(new CardShieldedKnight());
 		}
 		
 		Collections.shuffle(deck);
