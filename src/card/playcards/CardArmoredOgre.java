@@ -23,10 +23,7 @@ public class CardArmoredOgre extends Card {
 	@Override
 	public void play(Player owner, Player enemy) {
 		System.out.println("ArmoredOgre played");
-		CreatureArmoredOgre c = new CreatureArmoredOgre(owner);
-		c.setReady(false);
-		owner.addCreature(c);
-		
+		owner.spawnCreature(new CreatureArmoredOgre(owner));
 	}
 
 	@Override

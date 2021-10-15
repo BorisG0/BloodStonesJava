@@ -24,10 +24,7 @@ public class CardGoblin extends Card {
 	
 	public void play(Player owner, Player enemy) {
 		System.out.println("Goblin played");
-		CreatureGoblin c = new CreatureGoblin(owner);
-		c.setReady(false);
-		owner.addCreature(c);
-		
+		owner.spawnCreature(new CreatureGoblin(owner));
 	}
 
 

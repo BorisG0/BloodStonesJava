@@ -10,8 +10,13 @@ public abstract class Creature {
 	protected int health, damage;
 	protected String name;
 	protected boolean ready;
+
+	/**
+	 * Special abilities.
+	 * */
 	protected boolean isTaunt = false;
 	protected boolean isShielded = false;
+	protected boolean isUndead = false;
 	
 	public Creature(Player owner) {
 		this.owner = owner;
@@ -35,7 +40,14 @@ public abstract class Creature {
 		} else {
 			health -= damageTaken;
 		}
-		if(health <= 0) owner.getCreatures().remove(this);
+		if(health <= 0){
+			owner.getCreatures().remove(this);
+			if(this.isUndead){
+				owner.spawnCreature(this);
+				this.health = 1;
+				this.isUndead = false;
+			}
+		}
 	}
 	
 	public String getName() {
@@ -52,6 +64,10 @@ public abstract class Creature {
 
 	public boolean isTaunt(){
 		return isTaunt;
+	}
+
+	public boolean isUndead(){
+		return this.isUndead;
 	}
 
 	public boolean isShielded(){
