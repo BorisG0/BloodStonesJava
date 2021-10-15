@@ -11,6 +11,7 @@ public abstract class Creature {
 	protected String name;
 	protected boolean ready;
 	protected boolean isTaunt = false;
+	protected boolean isShielded = false;
 	
 	public Creature(Player owner) {
 		this.owner = owner;
@@ -29,7 +30,11 @@ public abstract class Creature {
 	}
 	
 	public void takeHit(int damageTaken) {
-		health -= damageTaken;
+		if(this.isShielded){
+			this.isShielded = false;
+		} else {
+			health -= damageTaken;
+		}
 		if(health <= 0) owner.getCreatures().remove(this);
 	}
 	
@@ -47,6 +52,10 @@ public abstract class Creature {
 
 	public boolean isTaunt(){
 		return isTaunt;
+	}
+
+	public boolean isShielded(){
+		return this.isShielded;
 	}
 
 	public void attack(Creature attackedCreature) {
