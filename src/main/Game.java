@@ -480,7 +480,10 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 
 		enemyHasTaunt = false;			//tauntcheck
 		for(Creature c : passiveCreatures){
-			if(c.isTaunt()) enemyHasTaunt = true;
+			if (c.isTaunt()) {
+				enemyHasTaunt = true;
+				break;
+			}
 		}
 
 		if(my <= fh - handCardVerticalGap && my >= fh - handCardVerticalGap - handImageSizeY &&  //hand clicked
