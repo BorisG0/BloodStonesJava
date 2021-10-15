@@ -17,7 +17,7 @@ public class CreatureArmoredOgre extends Creature {
 			System.out.println("krinsch");
 		}
 		
-		health = 7;
+		health = 5;
 		damage = 2;
 		isTaunt = true;
 		
