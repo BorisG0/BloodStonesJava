@@ -74,6 +74,10 @@ public abstract class Creature {
 		return this.isShielded;
 	}
 
+	public void setShielded (boolean isShielded){
+		this.isShielded = isShielded;
+	}
+
 	public void attack(Creature attackedCreature) {
 		attackedCreature.takeHit(damage);
 		takeHit(attackedCreature.getDamage());

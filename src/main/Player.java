@@ -31,6 +31,7 @@ public class Player {
 			deck.add(new CardShieldedKnight());
 			deck.add(new CardUndeadKnight());
 			deck.add(new CardBook());
+			deck.add(new CardShield());
 		}
 		
 		Collections.shuffle(deck);
