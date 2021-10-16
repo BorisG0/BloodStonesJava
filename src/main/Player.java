@@ -22,9 +22,10 @@ public class Player {
 		this.b = b;
 		this.name = name;
 		deck = new ArrayList<Card>();
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 6; i++) {
 			//deck.add(new Blank());
 			deck.add(new CardGoblin());
+			deck.add(new CardGoblinGang());
 			deck.add(new CardFireGoblin());
 			deck.add(new CardFireBall());
 			deck.add(new CardArmoredOgre());
