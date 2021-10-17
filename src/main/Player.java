@@ -22,7 +22,7 @@ public class Player {
 		this.b = b;
 		this.name = name;
 		deck = new ArrayList<Card>();
-		for(int i = 0; i < 6; i++) {
+		for(int i = 0; i < 4; i++) {
 			//deck.add(new Blank());
 			deck.add(new CardGoblin());
 			deck.add(new CardGoblinGang());
@@ -33,6 +33,7 @@ public class Player {
 			deck.add(new CardUndeadKnight());
 			deck.add(new CardBook());
 			deck.add(new CardShield());
+			deck.add(new CardGolem());
 		}
 		
 		Collections.shuffle(deck);
