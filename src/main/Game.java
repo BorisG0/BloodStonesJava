@@ -570,7 +570,11 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 						selectingTargetFor.target(null, targetedCreature);
 						selectingTarget = false;
 						selectingTargetFor = null;
-					}else if((!enemyHasTaunt) || targetedCreature.isTaunt()){ //selecting target for creature to attack
+					}else if(
+						//To attack a creature, it needs to not fly and there can't be a taunt creature, unless you're attacking a taunt creature.
+						//If your attacker flies, it can attack anything either way.
+						!targetedCreature.isFlying() && ((!enemyHasTaunt) || targetedCreature.isTaunt()) || activeCreatures.get(selectedCreature).isFlying()
+					){ //selecting target for creature to attack
 						Creature attackingCreature = activeCreatures.get(selectedCreature);
 
 						attackingCreature.attack(targetedCreature);
@@ -582,7 +586,7 @@ public class Game extends JPanel implements MouseListener, KeyListener{
 			
 		}else if(my <= handCardVerticalGap + handImageSizeY && my >= handCardVerticalGap && mx <= handImageSizeX) { //enemy character clicked
 			System.out.println("Enemy Character clicked");
-			if(selectedCreature != -1 && !enemyHasTaunt) { //selecting target for creature to attack
+			if(selectedCreature != -1 && (!enemyHasTaunt || activeCreatures.get(selectedCreature).isFlying())) { //selecting target for creature to attack
 				activeCreatures.get(selectedCreature).attack(passivePlayer);
 				selectedCreature = -1;
 			}
