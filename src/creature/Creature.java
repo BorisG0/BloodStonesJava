@@ -14,9 +14,10 @@ public abstract class Creature {
 	/**
 	 * Special abilities.
 	 * */
-	protected boolean isTaunt = false;
-	protected boolean isShielded = false;
-	protected boolean isUndead = false;
+	protected boolean isTaunt = false; //Protects other creatures and the player, has to be attacked first.
+	protected boolean isShielded = false; //Shield absorbs first hit taken, then the shield is lost.
+	protected boolean isUndead = false; //When dying, re-enters the battlefield with 1 Health and without Undead.
+	protected boolean isFlying = false; //Can not be attacked by other creatures that don't have flying. Can attack anything regardless of taunt.
 	
 	public Creature(Player owner) {
 		this.owner = owner;
@@ -72,6 +73,10 @@ public abstract class Creature {
 
 	public boolean isShielded(){
 		return this.isShielded;
+	}
+
+	public boolean isFlying(){
+		return this.isFlying;
 	}
 
 	public void setShielded (boolean isShielded){
